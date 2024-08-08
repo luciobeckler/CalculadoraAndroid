@@ -75,4 +75,10 @@ public class Calculadora {
         }
         executarOperacao((op1, op2) -> op2 / op1);
     }
+    public void limpaNumerosPilha(){
+        operandos.clear();
+    }
+    public int tamanhoPilha(){
+        return operandos.size();
+    }
 }

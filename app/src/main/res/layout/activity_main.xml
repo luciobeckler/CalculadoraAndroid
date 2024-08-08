@@ -46,6 +46,7 @@
         android:id="@+id/btn8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="right"
         android:minWidth="32dp"
         android:text="8"
         app:layout_constraintBottom_toBottomOf="@+id/btn7"
@@ -69,6 +70,7 @@
         android:id="@+id/btn5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="right"
         android:minWidth="32dp"
         android:text="5"
         app:layout_constraintBottom_toBottomOf="@+id/btn4"
@@ -135,17 +137,20 @@
         android:id="@+id/btnVirgula"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
+        android:gravity="right"
         android:minWidth="32dp"
         android:text=","
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/btnBackSpace"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btn0"
-        tools:layout_editor_absoluteY="647dp" />
+        app:layout_constraintStart_toEndOf="@+id/btn0" />
 
     <Button
         android:id="@+id/btn2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:gravity="right"
         android:minWidth="32dp"
         android:text="2"
         app:layout_constraintBottom_toBottomOf="@+id/btn1"
@@ -158,11 +163,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:minWidth="32dp"
-        android:text="<<"
+        app:icon="@drawable/baseline_backspace_24"
         app:layout_constraintBottom_toBottomOf="@+id/btnVirgula"
         app:layout_constraintEnd_toStartOf="@+id/btnPlus"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btnVirgula" />
+        app:layout_constraintStart_toEndOf="@+id/btnVirgula"
+        android:contentDescription="Backspace" />
 
     <Button
         android:id="@+id/btn3"
@@ -221,17 +227,20 @@
         app:layout_constraintEnd_toStartOf="@+id/btn2"
         app:layout_constraintStart_toEndOf="@+id/btnEnter" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="264dp"
-        android:layout_height="64dp"
-        android:gravity="bottom|end"
-        android:text="TextView"
-        android:textAlignment="gravity"
-        android:textSize="48sp"
+    <EditText
+        android:id="@+id/editTextNumberDecimal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:gravity="right"
+        android:inputType="numberDecimal"
+        android:text=" "
+        android:textSize="60sp"
         app:layout_constraintBottom_toTopOf="@+id/btn8"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.457" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
