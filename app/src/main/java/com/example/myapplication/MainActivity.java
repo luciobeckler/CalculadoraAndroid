@@ -93,36 +93,21 @@ public class MainActivity extends AppCompatActivity {
         }));
 
         btnBackspace.setOnClickListener((view -> {
-            int inicioSelecao = visor.getSelectionStart();
+            int inicioSelecao = visor.getSelectionStart() - 1;
             inicioSelecao = Math.max(inicioSelecao, 0);
             int finalSelecao = visor.getSelectionEnd();
 
             visor.getText().delete(inicioSelecao, finalSelecao);
+            atualizarNumero();
         }));
 
         btnEnter.setOnClickListener(view -> {
-            String textoVisor = visor.getText().toString();
-            if (!textoVisor.isEmpty()) {
-                double valor = Double.valueOf(textoVisor);
-
-                calculadora.setNumero(valor);
-                calculadora.enter();
-                visor.getText().clear();
-            } else {
-                Toast.makeText(this, "Por favor, insira um número", Toast.LENGTH_SHORT).show();
-            }
+            calculadora.enter();
         });
 
         btnPlus.setOnClickListener(view -> {
-            if (calculadora.tamanhoPilha() < 2) {
-                Toast.makeText(this, "Insira pelo menos dois números antes de somar", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            calculadora.executarOperacao((a, b) -> a + b); // Define a operação de soma
-
-            double resultado = calculadora.getNumero();
-            visor.setText(String.valueOf(resultado));
+            calculadora.soma();
+            atualizarVisor();
         });
 
         btnLess.setOnClickListener(view -> {
@@ -174,5 +159,16 @@ public class MainActivity extends AppCompatActivity {
 
             visor.getText().replace(inicioSelecao, finalSelecao, id);
         };
+    }
+
+    public void atualizarNumero(){
+        String s = visor.getText().toString();
+        s = "".equals(s) ? "0" : s;
+        calculadora.setNumero(Double.valueOf(s));
+    }
+
+    public void atualizarVisor(){
+        double numero = calculadora.getNumero();
+        visor.setText(String.format("%.2f", numero));
     }
 }
