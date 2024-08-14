@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.lifecycle.ViewModelProvider;
 
 public class MainActivity extends AppCompatActivity {
     private Button btn0;
@@ -71,6 +72,8 @@ public class MainActivity extends AppCompatActivity {
 
         visor = findViewById(R.id.editTextNumberDecimal);
         visor.setShowSoftInputOnFocus(false);
+        calculadora = new ViewModelProvider(this).get(Calculadora.class);
+
 
         btn0.setOnClickListener(botaoClick("0"));
         btn1.setOnClickListener(botaoClick("1"));
@@ -167,12 +170,14 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public View.OnClickListener botaoClick(final String id){
-        return (v)->{
-            int inicioSelecao = visor.getSelectionStart();
-            int finalSelecao = visor.getSelectionEnd();
+    public View.OnClickListener botaoClick(final String id) {
+        return (v) -> {
+            int finalTexto = visor.getText().length();
 
-            visor.getText().replace(inicioSelecao, finalSelecao, id);
+            visor.setSelection(finalTexto, finalTexto);
+
+            visor.getText().replace(finalTexto, finalTexto, id);
         };
     }
+
 }
