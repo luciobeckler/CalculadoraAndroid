@@ -16,10 +16,12 @@ public class Calculadora extends ViewModel {
     private double numero;
     private Deque<Double> operandos;
     private int modo = MODO_EXIBINDO;
+    public JurosCompostos jurosCompostos;
 
     public Calculadora() {
         numero = 0;
         operandos = new LinkedList<>();
+        jurosCompostos = new JurosCompostos();
     }
 
     public void setNumero(double numero) {

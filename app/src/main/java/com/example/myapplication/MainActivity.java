@@ -30,6 +30,12 @@ public class MainActivity extends AppCompatActivity {
     private Button btnDevide;
     private Button btnMultiply;
 
+    private Button btnI;
+    private Button btnN;
+    private Button btnPV;
+    private Button btnFV;
+    private Button btnPMT;
+
     private Button btnClr;
     private Button btnVirgula;
     private Button btnEnter;
@@ -48,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        // Setando variáveis
         btn0 = findViewById(R.id.btn0);
         btn1 = findViewById(R.id.btn1);
         btn2 = findViewById(R.id.btn2);
@@ -64,16 +72,20 @@ public class MainActivity extends AppCompatActivity {
         btnMultiply = findViewById(R.id.btnMultiply);
         btnDevide = findViewById(R.id.btnDevide);
 
+        btnI = findViewById(R.id.btnI);
+        btnN = findViewById(R.id.btnN);
+        btnPV = findViewById(R.id.btnPV);
+        btnFV = findViewById(R.id.btnFV);
+        btnPMT = findViewById(R.id.btnPMT);
+
         btnClr = findViewById(R.id.btnClr);
         btnEnter = findViewById(R.id.btnEnter);
         btnBackspace = findViewById(R.id.btnBackSpace);
         btnVirgula = findViewById(R.id.btnVirgula);
 
-
         visor = findViewById(R.id.editTextNumberDecimal);
         visor.setShowSoftInputOnFocus(false);
         calculadora = new ViewModelProvider(this).get(Calculadora.class);
-
 
         btn0.setOnClickListener(botaoClick("0"));
         btn1.setOnClickListener(botaoClick("1"));
@@ -86,9 +98,59 @@ public class MainActivity extends AppCompatActivity {
         btn8.setOnClickListener(botaoClick("8"));
         btn9.setOnClickListener(botaoClick("9"));
 
-
-
         btnVirgula.setOnClickListener(botaoClick(","));
+
+        btnI.setOnClickListener((view -> {
+            String textoVisor = visor.getText().toString();
+            if (!textoVisor.isEmpty()) {
+                double valor = Double.valueOf(textoVisor);
+                calculadora.jurosCompostos.setI(valor);
+                visor.getText().clear();
+            }
+        }));
+
+        btnN.setOnClickListener(view -> {
+            String textoVisor = visor.getText().toString();
+            if (!textoVisor.isEmpty()) {
+                double valor = Integer.valueOf(textoVisor);
+                Double resultado = calculadora.jurosCompostos.setN(valor);
+
+                if (resultado != null) {
+                    visor.getText().clear();
+                    visor.getText().replace(0, 0, String.valueOf(resultado));
+                } else {
+                    visor.getText().clear();
+                }
+            }
+        });
+
+
+        btnPV.setOnClickListener((view -> {
+            String textoVisor = visor.getText().toString();
+            if (!textoVisor.isEmpty()) {
+                double valor = Double.valueOf(textoVisor);
+                calculadora.jurosCompostos.setPv(valor);
+                visor.getText().clear();
+            }
+        }));
+
+        btnFV.setOnClickListener((view -> {
+            String textoVisor = visor.getText().toString();
+            if (!textoVisor.isEmpty()) {
+                double valor = Double.valueOf(textoVisor);
+                calculadora.jurosCompostos.setFv(valor);
+                visor.getText().clear();
+            }
+        }));
+
+        btnPMT.setOnClickListener((view -> {
+            String textoVisor = visor.getText().toString();
+            if (!textoVisor.isEmpty()) {
+                double valor = Double.valueOf(textoVisor);
+                calculadora.jurosCompostos.setPMT(valor);
+                visor.getText().clear();
+            }
+        }));
 
         btnClr.setOnClickListener((view -> {
             visor.getText().clear();
@@ -134,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            calculadora.executarOperacao((a, b) -> a - b); // Define a operação de soma
+            calculadora.executarOperacao((a, b) -> a - b); // Define a operação de subtração
 
             double resultado = calculadora.getNumero();
             visor.setText(String.valueOf(resultado));
@@ -146,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
 
-            calculadora.executarOperacao((a, b) -> a * b); // Define a operação de soma
+            calculadora.executarOperacao((a, b) -> a * b); // Define a operação de multiplicação
 
             double resultado = calculadora.getNumero();
             visor.setText(String.valueOf(resultado));
@@ -159,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             try {
-                calculadora.executarOperacao((a, b) -> a / b);
+                calculadora.executarOperacao((a, b) -> a / b); // Define a operação de divisão
                 double resultado = calculadora.getNumero();
                 visor.setText(String.valueOf(resultado));
             } catch (ArithmeticException e) {
@@ -173,11 +235,8 @@ public class MainActivity extends AppCompatActivity {
     public View.OnClickListener botaoClick(final String id) {
         return (v) -> {
             int finalTexto = visor.getText().length();
-
             visor.setSelection(finalTexto, finalTexto);
-
             visor.getText().replace(finalTexto, finalTexto, id);
         };
     }
-
 }
